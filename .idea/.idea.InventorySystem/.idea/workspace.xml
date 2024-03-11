@@ -10,7 +10,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a361ddd0-09ff-45e1-8a5d-7dfc3d843dc4" name="Changes" comment="" />
+    <list default="true" id="a361ddd0-09ff-45e1-8a5d-7dfc3d843dc4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +33,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "C++ Project.InventorySystem.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -508,7 +511,7 @@
       <workItem from="1710177561091" duration="13000" />
       <workItem from="1710177605432" duration="283000" />
       <workItem from="1710177905471" duration="94000" />
-      <workItem from="1710178016486" duration="1561000" />
+      <workItem from="1710178016486" duration="3288000" />
     </task>
     <servers />
   </component>
