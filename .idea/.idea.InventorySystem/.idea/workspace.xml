@@ -12,6 +12,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a361ddd0-09ff-45e1-8a5d-7dfc3d843dc4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/InventorySystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Private/InventorySystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/InventorySystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Public/InventorySystem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/InventorySystemCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Private/InventorySystemCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/InventorySystemCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Public/InventorySystemCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/InventorySystemGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Private/InventorySystemGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/InventorySystemGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Public/InventorySystemGameMode.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -514,6 +520,8 @@
       <workItem from="1710178016486" duration="3889000" />
       <workItem from="1710185041949" duration="4000" />
       <workItem from="1710185062301" duration="828000" />
+      <workItem from="1710265297183" duration="106000" />
+      <workItem from="1710265418086" duration="1693000" />
     </task>
     <servers />
   </component>
