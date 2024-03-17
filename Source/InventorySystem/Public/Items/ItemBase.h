@@ -17,7 +17,7 @@ class INVENTORYSYSTEM_API UItemBase : public UObject
 public:
 
 	//Properties And Variables
-	
+
 	UPROPERTY(VisibleAnywhere, Category = "Item Data", meta = (UIMin=1, UIMax=100))
 	int32 Quantity;
 
@@ -47,7 +47,7 @@ public:
 	UItemBase();
 
 	UFUNCTION(Category = "Item")
-	UItemBase* CreateItemCopy();
+	UItemBase* CreateItemCopy() const;
 
 	UFUNCTION(Category = "Item")
 	FORCEINLINE float GetItemStackWeight() const {	return Quantity * NumericData.Weight;	};
@@ -63,4 +63,11 @@ public:
 
 	UFUNCTION(Category = "Item")
 	virtual void Use(AInventorySystemCharacter* Character);
+
+protected:
+
+	bool operator == (const FName& OtherID) const
+	{
+		return ID == OtherID;
+	}
 };
