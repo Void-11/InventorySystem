@@ -15,6 +15,24 @@ struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
+USTRUCT()
+
+struct FInteractionData
+{
+	GENERATED_USTRUCT_BODY()
+
+	FInteractionData() : CurrentInteractable(nullptr), LastInteractionTimeCheck(0.0f)
+	{
+		
+	};
+
+	UPROPERTY()
+	AActor* CurrentInteractable;
+
+	UPROPERTY()
+	float LastInteractionTimeCheck;
+};
+
 UCLASS(config=Game)
 class AInventorySystemCharacter : public ACharacter
 {
@@ -46,28 +64,49 @@ class AInventorySystemCharacter : public ACharacter
 
 public:
 	AInventorySystemCharacter();
+
+	/** Returns CameraBoom subobject **/
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	/** Returns FollowCamera subobject **/
+	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 	
 
 protected:
 
+	//PROPERTIES AND VARIABLES
+	
+	UPROPERTY(VisibleAnywhere, Category = "Character | Interface")
+	TScriptInterface<IInteractionInterface> TargetInteractable;
+
+	float InteractionFrequencyCheck;
+
+	float InteractionDistanceCheck;
+
+	FTimerHandle TimerHandle_Interaction;
+
+	FInteractionData InteractionData;
+
+	//FUNCTIONS
+	
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
-
-protected:
+	
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	// To add mapping context
 	virtual void BeginPlay();
 
-public:
-	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	void PerformInteractionCheck();
+	void FoundInteractable(AActor* NewInteractable);
+	void NoInteractableFound();
+	void InitiateInteract();
+	void TerminateInteract();
+	void Interact();
+
+	virtual void Tick(float DeltaSeconds) override;
 };
 

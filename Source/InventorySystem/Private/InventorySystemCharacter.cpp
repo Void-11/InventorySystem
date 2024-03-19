@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Interfaces/InteractionInterface.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -67,6 +68,69 @@ void AInventorySystemCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+}
+
+void AInventorySystemCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	if(GetWorld()->TimeSince(InteractionData.LastInteractionTimeCheck) > InteractionFrequencyCheck)
+	{
+		PerformInteractionCheck();
+	}
+}
+
+void AInventorySystemCharacter::PerformInteractionCheck()
+{
+	InteractionData.LastInteractionTimeCheck = GetWorld()->GetTimeSeconds();
+
+	const FVector TraceStart(GetPawnViewLocation());
+	const FVector TraceEnd(TraceStart + (GetViewRotation().Vector() * InteractionDistanceCheck));
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+	FHitResult TraceHit;
+
+	if(GetWorld()->LineTraceSingleByChannel(TraceHit,TraceStart,TraceEnd,ECC_Visibility,QueryParams))
+	{
+		if(TraceHit.GetActor()->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
+		{
+			const float Distance = (TraceStart - TraceHit.ImpactPoint).Size();
+
+			if(TraceHit.GetActor() != InteractionData.CurrentInteractable && Distance <= InteractionDistanceCheck)
+			{
+				FoundInteractable(TraceHit.GetActor());
+				return;
+			}
+
+			if(TraceHit.GetActor() == InteractionData.CurrentInteractable)
+			{
+				return;
+			}
+		}
+	}
+
+	NoInteractableFound();
+}
+
+void AInventorySystemCharacter::FoundInteractable(AActor* NewInteractable)
+{
+}
+
+void AInventorySystemCharacter::NoInteractableFound()
+{
+}
+
+void AInventorySystemCharacter::InitiateInteract()
+{
+}
+
+void AInventorySystemCharacter::TerminateInteract()
+{
+}
+
+void AInventorySystemCharacter::Interact()
+{
 }
 
 //////////////////////////////////////////////////////////////////////////
