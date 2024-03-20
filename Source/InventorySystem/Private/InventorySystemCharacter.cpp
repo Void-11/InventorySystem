@@ -11,6 +11,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Interfaces/InteractionInterface.h"
+#include  "DrawDebugHelpers.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -51,8 +52,10 @@ AInventorySystemCharacter::AInventorySystemCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
-	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+	InteractionFrequencyCheck = 0.1;
+	InteractionDistanceCheck = 227.0f;
+
+	BaseEyeHeight = 74.0f;
 }
 
 void AInventorySystemCharacter::BeginPlay()
@@ -87,25 +90,32 @@ void AInventorySystemCharacter::PerformInteractionCheck()
 	const FVector TraceStart(GetPawnViewLocation());
 	const FVector TraceEnd(TraceStart + (GetViewRotation().Vector() * InteractionDistanceCheck));
 
-	FCollisionQueryParams QueryParams;
-	QueryParams.AddIgnoredActor(this);
-	FHitResult TraceHit;
+	float LookDirection = FVector::DotProduct(GetActorForwardVector(),GetViewRotation().Vector());
 
-	if(GetWorld()->LineTraceSingleByChannel(TraceHit,TraceStart,TraceEnd,ECC_Visibility,QueryParams))
-	{
-		if(TraceHit.GetActor()->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
+	if(LookDirection > 0)
+	{	
+		DrawDebugLine(GetWorld(),TraceStart,TraceEnd,FColor::Purple,false,1.0f,0,2.0f);
+
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(this);
+		FHitResult TraceHit;
+
+		if(GetWorld()->LineTraceSingleByChannel(TraceHit,TraceStart,TraceEnd,ECC_Visibility,QueryParams))
 		{
-			const float Distance = (TraceStart - TraceHit.ImpactPoint).Size();
-
-			if(TraceHit.GetActor() != InteractionData.CurrentInteractable && Distance <= InteractionDistanceCheck)
+			if(TraceHit.GetActor()->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
 			{
-				FoundInteractable(TraceHit.GetActor());
-				return;
-			}
+				const float Distance = (TraceStart - TraceHit.ImpactPoint).Size();
 
-			if(TraceHit.GetActor() == InteractionData.CurrentInteractable)
-			{
-				return;
+				if(TraceHit.GetActor() != InteractionData.CurrentInteractable && Distance <= InteractionDistanceCheck)
+				{
+					FoundInteractable(TraceHit.GetActor());
+					return;
+				}
+
+				if(TraceHit.GetActor() == InteractionData.CurrentInteractable)
+				{
+					return;
+				}
 			}
 		}
 	}
@@ -115,14 +125,69 @@ void AInventorySystemCharacter::PerformInteractionCheck()
 
 void AInventorySystemCharacter::FoundInteractable(AActor* NewInteractable)
 {
+	if(IsInteracting())
+	{
+		TerminateInteract();
+	}
+
+	if(InteractionData.CurrentInteractable)
+	{
+		TargetInteractable = InteractionData.CurrentInteractable;
+		TargetInteractable->TerminateFocus();
+	}
+
+	InteractionData.CurrentInteractable = NewInteractable;
+	TargetInteractable = NewInteractable;
+
+	TargetInteractable->InitiateFocus();
 }
 
 void AInventorySystemCharacter::NoInteractableFound()
 {
+	if(IsInteracting())
+	{
+		GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+	}
+
+	if(InteractionData.CurrentInteractable)
+	{
+		if(IsValid(TargetInteractable.GetObject()))
+		{
+			TargetInteractable->TerminateFocus();
+		}
+
+		//HIDE INTERACTION WIDGET ON THE HUD
+
+		InteractionData.CurrentInteractable = nullptr;
+		TargetInteractable = nullptr;
+	}
 }
 
 void AInventorySystemCharacter::InitiateInteract()
 {
+	//VERIFY NOTHING HAS CHANGED WITH THE INTERACTABLE STATE SINCE INTERACTION START
+	PerformInteractionCheck();
+
+	if(InteractionData.CurrentInteractable)
+	{
+		if(IsValid(TargetInteractable.GetObject()))
+		{
+			TargetInteractable->InitiateInteract();
+
+			if(FMath::IsNearlyZero(TargetInteractable->InteractableData.InteractionDuration,0.1f))
+			{
+				Interact();
+			}
+			else
+			{
+				GetWorldTimerManager().SetTimer(TimerHandle_Interaction,
+					this,
+					&AInventorySystemCharacter::Interact,
+					TargetInteractable->InteractableData.InteractionDuration,
+					false);
+			}
+		}
+	}
 }
 
 void AInventorySystemCharacter::TerminateInteract()

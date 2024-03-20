@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "Interfaces/InteractionInterface.h"
 #include "InventorySystemCharacter.generated.h"
+
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -69,13 +71,14 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-	
+
+	FORCEINLINE bool IsInteracting() const { return GetWorldTimerManager().IsTimerActive(TimerHandle_Interaction); };
 
 protected:
 
 	//PROPERTIES AND VARIABLES
 	
-	UPROPERTY(VisibleAnywhere, Category = "Character | Interface")
+	UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
 	TScriptInterface<IInteractionInterface> TargetInteractable;
 
 	float InteractionFrequencyCheck;
