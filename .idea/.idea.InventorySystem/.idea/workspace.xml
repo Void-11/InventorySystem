@@ -12,7 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a361ddd0-09ff-45e1-8a5d-7dfc3d843dc4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +42,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.file-colors&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -522,6 +521,10 @@
       <workItem from="1710439493692" duration="848000" />
       <workItem from="1710519552397" duration="910000" />
       <workItem from="1710520836608" duration="789000" />
+      <workItem from="1710784003722" duration="2538000" />
+      <workItem from="1710864974737" duration="3153000" />
+      <workItem from="1710952611504" duration="99000" />
+      <workItem from="1710952726801" duration="5259000" />
     </task>
     <servers />
   </component>
