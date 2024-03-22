@@ -192,10 +192,22 @@ void AInventorySystemCharacter::InitiateInteract()
 
 void AInventorySystemCharacter::TerminateInteract()
 {
+	GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+
+	if(IsValid(TargetInteractable.GetObject()))
+	{
+		TargetInteractable->TerminateInteract();
+	}
 }
 
 void AInventorySystemCharacter::Interact()
 {
+	GetWorldTimerManager().ClearTimer(TimerHandle_Interaction);
+
+	if(IsValid(TargetInteractable.GetObject()))
+	{
+		TargetInteractable->Interact();
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -220,6 +232,9 @@ void AInventorySystemCharacter::SetupPlayerInputComponent(UInputComponent* Playe
 	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
+
+	PlayerInputComponent->BindAction("Interact",IE_Pressed,this,&AInventorySystemCharacter::InitiateInteract);
+	PlayerInputComponent->BindAction("Interact",IE_Released,this,&AInventorySystemCharacter::TerminateInteract);
 }
 
 void AInventorySystemCharacter::Move(const FInputActionValue& Value)
