@@ -31,5 +31,5 @@ protected:
 	virtual void TerminateFocus() override;
 	virtual void InitiateInteract() override;
 	virtual void TerminateInteract() override;
-	virtual void Interact() override;
+	virtual void Interact(AInventorySystemCharacter* PlayerCharacter) override;
 };

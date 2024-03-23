@@ -87,8 +87,8 @@ void AInventorySystemCharacter::PerformInteractionCheck()
 {
 	InteractionData.LastInteractionTimeCheck = GetWorld()->GetTimeSeconds();
 
-	const FVector TraceStart(GetPawnViewLocation());
-	const FVector TraceEnd(TraceStart + (GetViewRotation().Vector() * InteractionDistanceCheck));
+	FVector TraceStart{GetPawnViewLocation()};
+	FVector TraceEnd{TraceStart + (GetViewRotation().Vector() * InteractionDistanceCheck)};
 
 	float LookDirection = FVector::DotProduct(GetActorForwardVector(),GetViewRotation().Vector());
 
@@ -104,9 +104,8 @@ void AInventorySystemCharacter::PerformInteractionCheck()
 		{
 			if(TraceHit.GetActor()->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
 			{
-				const float Distance = (TraceStart - TraceHit.ImpactPoint).Size();
 
-				if(TraceHit.GetActor() != InteractionData.CurrentInteractable && Distance <= InteractionDistanceCheck)
+				if(TraceHit.GetActor() != InteractionData.CurrentInteractable)
 				{
 					FoundInteractable(TraceHit.GetActor());
 					return;
@@ -206,7 +205,7 @@ void AInventorySystemCharacter::Interact()
 
 	if(IsValid(TargetInteractable.GetObject()))
 	{
-		TargetInteractable->Interact();
+		TargetInteractable->Interact(this);
 	}
 }
 
