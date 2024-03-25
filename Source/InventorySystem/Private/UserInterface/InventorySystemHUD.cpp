@@ -2,6 +2,8 @@
 
 
 #include "UserInterface/InventorySystemHUD.h"
+
+#include "Chaos/Levelset.h"
 #include "UserInterface/MainMenu.h"
 #include "UserInterface/Interaction/InteractionWidget.h"
 
@@ -30,21 +32,46 @@ void AInventorySystemHUD::BeginPlay()
 
 void AInventorySystemHUD::DisplayMenu()
 {
+	if(MainMenuWidget)
+	{
+		bIsMenuVisible = true;
+		MainMenuWidget->SetVisibility(ESlateVisibility::Visible);
+	}
 }
 
 void AInventorySystemHUD::HideMenu()
 {
+	if(MainMenuWidget)
+	{
+		bIsMenuVisible = false;
+		MainMenuWidget->SetVisibility(ESlateVisibility::Collapsed);
+	}
 }
 
 void AInventorySystemHUD::ShowInteractionWidget()
 {
+	if(InteractionWidget)
+	{
+		InteractionWidget->SetVisibility(ESlateVisibility::Visible);
+	}
 }
 
 void AInventorySystemHUD::HideInteractionWidget()
 {
+	if(InteractionWidget)
+	{
+		InteractionWidget->SetVisibility(ESlateVisibility::Collapsed);
+	}
 }
 
 void AInventorySystemHUD::UpdateInteractionWidget(const FInteractableData* InteractableData)
 {
+	if(InteractionWidget)
+	{
+		if(InteractionWidget->GetVisibility() == (ESlateVisibility::Collapsed))
+		{
+			InteractionWidget->SetVisibility(ESlateVisibility::Visible);	
+		}
+	}
 }
 
