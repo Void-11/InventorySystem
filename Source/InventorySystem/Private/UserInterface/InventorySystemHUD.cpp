@@ -48,7 +48,7 @@ void AInventorySystemHUD::HideMenu()
 	}
 }
 
-void AInventorySystemHUD::ShowInteractionWidget()
+void AInventorySystemHUD::ShowInteractionWidget() const
 {
 	if(InteractionWidget)
 	{
@@ -56,7 +56,7 @@ void AInventorySystemHUD::ShowInteractionWidget()
 	}
 }
 
-void AInventorySystemHUD::HideInteractionWidget()
+void AInventorySystemHUD::HideInteractionWidget() const
 {
 	if(InteractionWidget)
 	{
@@ -64,7 +64,7 @@ void AInventorySystemHUD::HideInteractionWidget()
 	}
 }
 
-void AInventorySystemHUD::UpdateInteractionWidget(const FInteractableData* InteractableData)
+void AInventorySystemHUD::UpdateInteractionWidget(const FInteractableData* InteractableData) const
 {
 	if(InteractionWidget)
 	{
@@ -72,6 +72,8 @@ void AInventorySystemHUD::UpdateInteractionWidget(const FInteractableData* Inter
 		{
 			InteractionWidget->SetVisibility(ESlateVisibility::Visible);	
 		}
+
+		InteractionWidget->UpdateWidget(InteractableData);
 	}
 }
 

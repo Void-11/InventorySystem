@@ -32,9 +32,9 @@ public:
 	void DisplayMenu();
 	void HideMenu();
 
-	void ShowInteractionWidget();
-	void HideInteractionWidget();
-	void UpdateInteractionWidget(const FInteractableData* InteractableData);
+	void ShowInteractionWidget() const;
+	void HideInteractionWidget() const;
+	void UpdateInteractionWidget(const FInteractableData* InteractableData) const;
 
 protected:
 	virtual void BeginPlay() override;

@@ -14,6 +14,7 @@ class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
+class AInventorySystemHUD;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -88,6 +89,9 @@ protected:
 	FTimerHandle TimerHandle_Interaction;
 
 	FInteractionData InteractionData;
+
+	UPROPERTY()
+	AInventorySystemHUD* HUD;
 
 	//FUNCTIONS
 	

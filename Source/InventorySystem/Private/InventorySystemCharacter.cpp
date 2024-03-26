@@ -12,6 +12,7 @@
 #include "InputActionValue.h"
 #include "Interfaces/InteractionInterface.h"
 #include  "DrawDebugHelpers.h"
+#include "UserInterface/InventorySystemHUD.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -63,6 +64,8 @@ void AInventorySystemCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+	HUD = Cast<AInventorySystemHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+	
 	//Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -138,6 +141,8 @@ void AInventorySystemCharacter::FoundInteractable(AActor* NewInteractable)
 	InteractionData.CurrentInteractable = NewInteractable;
 	TargetInteractable = NewInteractable;
 
+	HUD->UpdateInteractionWidget(&TargetInteractable->InteractableData);
+	
 	TargetInteractable->InitiateFocus();
 }
 
@@ -155,7 +160,7 @@ void AInventorySystemCharacter::NoInteractableFound()
 			TargetInteractable->TerminateFocus();
 		}
 
-		//HIDE INTERACTION WIDGET ON THE HUD
+		HUD->HideInteractionWidget();
 
 		InteractionData.CurrentInteractable = nullptr;
 		TargetInteractable = nullptr;

@@ -21,7 +21,7 @@ void UInteractionWidget::NativeConstruct()
 	CurrentInteractionDuration = 0.0f;
 }
 
-void UInteractionWidget::UpdateWidget(const FInteractableData* InteractableData)
+void UInteractionWidget::UpdateWidget(const FInteractableData* InteractableData) const
 {
 	switch(InteractableData->InteractableType)
 	{
@@ -53,8 +53,12 @@ void UInteractionWidget::UpdateWidget(const FInteractableData* InteractableData)
 		
 	case EInteractableType::Container:
 		break;
+		
+	default: ;
 	}
 
+	ActionText->SetText(InteractableData->Action);
+	NameText->SetText(InteractableData->Name);
 }
 
 float UInteractionWidget::UpdateInteractionProgress()
