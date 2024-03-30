@@ -44,6 +44,12 @@ void APickup::InitializePickup(const TSubclassOf<UItemBase> BaseClass, const int
 
 void APickup::InitializeDrop(UItemBase* ItemToDrop, const int32 InQuantity)
 {
+	ItemReference = ItemToDrop;
+	InQuantity <= 0 ? ItemReference->SetQuantity(1) : ItemReference->SetQuantity(InQuantity);
+	ItemReference->NumericData.Weight = ItemToDrop->GetItemSingleWeight();
+	PickupMesh->SetStaticMesh(ItemToDrop->AssetData.Mesh);
+
+	UpdateInteractableData();
 }
 
 void APickup::UpdateInteractableData()
@@ -57,20 +63,51 @@ void APickup::UpdateInteractableData()
 
 void APickup::InitiateFocus()
 {
-	
+	if(PickupMesh)
+	{
+		PickupMesh->SetRenderCustomDepth(true);
+	}
 }
 
 void APickup::TerminateFocus()
 {
-	
+	if(PickupMesh)
+	{
+		PickupMesh->SetRenderCustomDepth(false);
+	}
 }
 
 void APickup::Interact(AInventorySystemCharacter* PlayerCharacter)
 {
-	
+	if(PlayerCharacter)
+	{
+		TakePickup(PlayerCharacter);
+	}
 }
 
 void APickup::TakePickup(const AInventorySystemCharacter* Taker)
 {
+	if(!IsPendingKillPending())
+	{
+		
+	}
+}
+
+void APickup::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+{
+	Super::PostEditChangeProperty(PropertyChangedEvent);
+
+	const FName ChangedPropertyName = PropertyChangedEvent.Property ? PropertyChangedEvent.Property->GetFName() : NAME_None;
+
+	if(ChangedPropertyName == GET_MEMBER_NAME_CHECKED(APickup, DesiredItemID))
+	{
+		if(ItemDataTable)
+		{
+			if(const FItemData* ItemData = ItemDataTable->FindRow<FItemData>(DesiredItemID, DesiredItemID.ToString()))
+			{
+				PickupMesh->SetStaticMesh(ItemData->AssetData.Mesh);
+			}
+		}
+	}
 }
 
