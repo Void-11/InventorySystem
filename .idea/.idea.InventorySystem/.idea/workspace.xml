@@ -33,6 +33,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;C++ Project.InventorySystem.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -42,14 +43,14 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.scopes&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\Vivaan Mishra\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\Vivaan Mishra\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\Vivaan Mishra\\AppData\\Local\\Symbols\\src&quot;
+      &quot;C:\\Users\\Viv\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\Viv\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\Viv\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
 }</component>
@@ -530,6 +531,25 @@
       <workItem from="1711298986563" duration="3857000" />
       <workItem from="1711387619830" duration="3658000" />
       <workItem from="1711469918584" duration="4884000" />
+      <workItem from="1711649193982" duration="98000" />
+      <workItem from="1711649357859" duration="1584000" />
+      <workItem from="1711735825393" duration="2286000" />
+      <workItem from="1711740726834" duration="868000" />
+      <workItem from="1711742077147" duration="653000" />
+      <workItem from="1711802067829" duration="101000" />
+      <workItem from="1711802189739" duration="3479000" />
+      <workItem from="1711810174868" duration="2086000" />
+      <workItem from="1712253261363" duration="265000" />
+      <workItem from="1712253594911" duration="384000" />
+      <workItem from="1712254744018" duration="86000" />
+      <workItem from="1712255144818" duration="469000" />
+      <workItem from="1712255735243" duration="375000" />
+      <workItem from="1712256151038" duration="135000" />
+      <workItem from="1712324124628" duration="47000" />
+      <workItem from="1712324276436" duration="36000" />
+      <workItem from="1712326184023" duration="1173000" />
+      <workItem from="1712333167464" duration="6275000" />
+      <workItem from="1712402481558" duration="1406000" />
     </task>
     <servers />
   </component>
