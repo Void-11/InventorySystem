@@ -86,7 +86,7 @@ public:
 	FItemAddResult ManageAddItem(UItemBase* InputItem);
 
 	UFUNCTION(Category = "Inventory")
-	UItemBase* FindMatchingItem(UItemBase* ItemIn) const
+	UItemBase* FindMatchingItem(UItemBase* ItemIn) const;
 	UFUNCTION(Category = "Inventory")
 	UItemBase* FindNextItemByID(UItemBase* ItemIn) const;
 	UFUNCTION(Category = "Inventory")
