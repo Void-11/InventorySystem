@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/InventoryComponent.h"
 #include "Data/ItemData.h"
 #include "ItemBase.generated.h"
 
@@ -18,6 +19,8 @@ public:
 
 	//Properties And Variables
 
+	UPROPERTY()
+	UInventoryComponent* OwningInventory;
 	UPROPERTY(VisibleAnywhere, Category = "Item")
 	int32 Quantity;
 
