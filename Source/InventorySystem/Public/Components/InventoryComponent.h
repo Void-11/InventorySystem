@@ -132,7 +132,7 @@ protected:
 	//FUNCTIONS
 	virtual void BeginPlay() override;
 
-	FItemAddResult ManageNonStackableItems(UItemBase* ItemIn, int32 RequestedAddAmount);
+	FItemAddResult ManageNonStackableItems(UItemBase* InputItem, int32 RequestedAddAmount);
 	int32 ManageStackableItems(UItemBase* ItemIn, int32 RequestedAddAmount);
 	int32 CalculateWeightAddAmount(UItemBase* ItemIn, int32 RequestedAddAmount);
 	int32 CalculateNumberForFullStack(UItemBase* StackableItem, int32 InitialRequestedAddAmount);
