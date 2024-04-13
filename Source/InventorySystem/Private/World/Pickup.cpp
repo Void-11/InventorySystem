@@ -89,7 +89,13 @@ void APickup::TakePickup(const AInventorySystemCharacter* Taker)
 {
 	if(!IsPendingKillPending())
 	{
-		
+		if(ItemReference)
+		{
+			if(UInventoryComponent* PlayerInventory = Taker->GetInventory())
+			{
+				
+			}
+		}
 	}
 }
 

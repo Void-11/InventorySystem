@@ -130,7 +130,7 @@ FItemAddResult UInventoryComponent::ManageNonStackableItems(UItemBase* InputItem
 	AddNewItem(InputItem, RequestedAddAmount);
 	//return add all result
 	return FItemAddResult::AddedAll(RequestedAddAmount,FText::Format(
-		FText::FromString("Successfully added {0}  {1} to the inventory. Item has invalid weight value"), RequestedAddAmount,InputItem->TextData.Name));
+		FText::FromString("Successfully added {0} {1} to the inventory. Item has invalid weight value"), RequestedAddAmount,InputItem->TextData.Name));
 }
 
 int32 UInventoryComponent::ManageStackableItems(UItemBase*, int32 RequestedAddAmount)
@@ -171,4 +171,24 @@ FItemAddResult UInventoryComponent::ManageAddItem(UItemBase* InputItem)
 
 void UInventoryComponent::AddNewItem(UItemBase* Item, const int32 AmountToAdd)
 {
+	UItemBase* NewItem;
+
+	if(Item->bIsCopy || Item->bIsPickup)
+	{
+		//If the Item is already a copy, or is a world pickup 
+		NewItem = Item;
+		NewItem->ResetItemFlags();
+	}
+	else
+	{
+		//used when splitting/dragging to/from another inventory
+		NewItem = Item->CreateItemCopy();
+	}
+
+	NewItem->OwningInventory = this;
+	NewItem->SetQuantity(AmountToAdd);
+
+	InventoryContents.Add(NewItem);
+	InventoryTotalWeight += NewItem->GetItemStackWeight();
+	OnInventoryUpdated.Broadcast();
 }

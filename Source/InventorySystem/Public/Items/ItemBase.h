@@ -45,6 +45,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Item")
 	FItemAssetData AssetData;
 
+	bool bIsCopy;
+	bool bIsPickup;
+
 	//Functions
 
 	UItemBase();
@@ -67,6 +70,8 @@ public:
 	UFUNCTION(Category = "Item")
 	virtual void Use(AInventorySystemCharacter* Character);
 
+	void ResetItemFlags();
+	
 protected:
 
 	bool operator == (const FName& OtherID) const

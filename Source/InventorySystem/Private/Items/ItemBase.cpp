@@ -3,7 +3,7 @@
 
 #include "Items/ItemBase.h"
 
-UItemBase::UItemBase()
+UItemBase::UItemBase() : bIsCopy(false), bIsPickup(false)
 {
 }
 
@@ -19,6 +19,7 @@ UItemBase* UItemBase::CreateItemCopy() const
 	ItemCopy->NumericData = this->NumericData;
 	ItemCopy->ItemStatistics = this->ItemStatistics;
 	ItemCopy->AssetData = this->AssetData;
+	ItemCopy->bIsCopy = true;
 	
 	return ItemCopy;
 }
@@ -41,4 +42,10 @@ void UItemBase::SetQuantity(const int32 NewQuantity)
 
 void UItemBase::Use(AInventorySystemCharacter* Character)
 {
+}
+
+void UItemBase::ResetItemFlags()
+{
+	bIsCopy = false;
+	bIsPickup = false;
 }

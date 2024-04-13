@@ -9,6 +9,7 @@
 #include "InventorySystemCharacter.generated.h"
 
 
+class UInventoryComponent;
 class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
@@ -75,6 +76,8 @@ public:
 
 	FORCEINLINE bool IsInteracting() const { return GetWorldTimerManager().IsTimerActive(TimerHandle_Interaction); };
 
+	FORCEINLINE UInventoryComponent* GetInventory() const { return PlayerInventory; };	
+
 protected:
 
 	//PROPERTIES AND VARIABLES
@@ -82,6 +85,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
 	TScriptInterface<IInteractionInterface> TargetInteractable;
 
+	UPROPERTY(VisibleAnywhere, Category = "Character | Inventory")
+	UInventoryComponent* PlayerInventory;
+	
 	float InteractionFrequencyCheck;
 
 	float InteractionDistanceCheck;
