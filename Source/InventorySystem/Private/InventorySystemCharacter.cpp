@@ -219,6 +219,14 @@ void AInventorySystemCharacter::Interact()
 	}
 }
 
+void AInventorySystemCharacter::UpdateInteractionWidget() const
+{
+	if(IsValid(TargetInteractable.GetObject()))
+	{
+		HUD->UpdateInteractionWidget(&TargetInteractable->InteractableData);
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Input
 

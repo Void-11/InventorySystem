@@ -76,7 +76,9 @@ public:
 
 	FORCEINLINE bool IsInteracting() const { return GetWorldTimerManager().IsTimerActive(TimerHandle_Interaction); };
 
-	FORCEINLINE UInventoryComponent* GetInventory() const { return PlayerInventory; };	
+	FORCEINLINE UInventoryComponent* GetInventory() const { return PlayerInventory; };
+
+	void UpdateInteractionWidget() const;
 
 protected:
 

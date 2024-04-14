@@ -93,8 +93,33 @@ void APickup::TakePickup(const AInventorySystemCharacter* Taker)
 		{
 			if(UInventoryComponent* PlayerInventory = Taker->GetInventory())
 			{
-				
+				const FItemAddResult AddResult = PlayerInventory->ManageAddItem(ItemReference);
+
+				switch (AddResult.OperationResult)
+				{
+				case EItemAddResult::Iar_NoItemAdded:
+					break;
+				case EItemAddResult::Iar_PartialAmountItemAdded:
+					UpdateInteractableData();
+					Taker->UpdateInteractionWidget();
+					break;
+				case EItemAddResult::Iar_AllItemAdded:
+					Destroy();
+					break;
+				}
+
+				UE_LOG(LogTemp, Warning, TEXT("%s"), *AddResult.ResultMessage.ToString());
 			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Player Inventory Component is null!"));
+
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Pickup Internal Item Reference was somehow null!"));
+
 		}
 	}
 }
