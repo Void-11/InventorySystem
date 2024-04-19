@@ -21,6 +21,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/DragItemVisual.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/InventoryItemSlot.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/InventoryToolTip.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/ItemDragDropOperation.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Public/UserInterface/Inventory/DragItemVisual.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Public/UserInterface/Inventory/InventoryItemSlot.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Public/UserInterface/Inventory/InventoryToolTip.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Public/UserInterface/Inventory/ItemDragDropOperation.h" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 1
@@ -597,6 +607,8 @@
       <workItem from="1712942980475" duration="2600000" />
       <workItem from="1713029775791" duration="2208000" />
       <workItem from="1713112618138" duration="1549000" />
+      <workItem from="1713376424843" duration="115000" />
+      <workItem from="1713376554730" duration="4205000" />
     </task>
     <servers />
   </component>
