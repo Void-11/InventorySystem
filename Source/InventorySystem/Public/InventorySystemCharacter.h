@@ -114,7 +114,10 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
+	virtual void Tick(float DeltaSeconds) override;
 
+	void ToggleMenu();
+	
 	void PerformInteractionCheck();
 	void FoundInteractable(AActor* NewInteractable);
 	void NoInteractableFound();
@@ -122,6 +125,6 @@ protected:
 	void TerminateInteract();
 	void Interact();
 
-	virtual void Tick(float DeltaSeconds) override;
+	
 };
 

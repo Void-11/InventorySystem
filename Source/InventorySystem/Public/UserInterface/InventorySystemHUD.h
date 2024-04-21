@@ -19,6 +19,7 @@ class INVENTORYSYSTEM_API AInventorySystemHUD : public AHUD
 
 public:
 
+	//PROPERTIES AND VARIABLES
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 	TSubclassOf<UMainMenu> MainMenuClass;
 
@@ -27,10 +28,12 @@ public:
 
 	bool bIsMenuVisible;
 
+	//FUNCTIONS
 	AInventorySystemHUD();
 
 	void DisplayMenu();
 	void HideMenu();
+	void ToggleMenu();
 
 	void ShowInteractionWidget() const;
 	void HideInteractionWidget() const;

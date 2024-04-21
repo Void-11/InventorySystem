@@ -227,6 +227,11 @@ void AInventorySystemCharacter::UpdateInteractionWidget() const
 	}
 }
 
+void AInventorySystemCharacter::ToggleMenu()
+{
+	HUD->ToggleMenu();
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Input
 
@@ -252,6 +257,8 @@ void AInventorySystemCharacter::SetupPlayerInputComponent(UInputComponent* Playe
 
 	PlayerInputComponent->BindAction("Interact",IE_Pressed,this,&AInventorySystemCharacter::InitiateInteract);
 	PlayerInputComponent->BindAction("Interact",IE_Released,this,&AInventorySystemCharacter::TerminateInteract);
+
+	PlayerInputComponent->BindAction("ToggleMenu", IE_Pressed, this, &AInventorySystemCharacter::ToggleMenu);
 }
 
 void AInventorySystemCharacter::Move(const FInputActionValue& Value)
