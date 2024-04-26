@@ -5,6 +5,9 @@
 #include "InventorySystemCharacter.h"
 #include "Components/InventoryComponent.h"
 #include "Components/TextBlock.h"
+#include "UserInterface/Inventory/InventoryItemSlot.h"
+#include "Components/WrapBox.h"
+#include "Items/ItemBase.h"
 
 void UInventoryPanel::NativeOnInitialized()
 {
@@ -35,6 +38,18 @@ void UInventoryPanel::SetInfoText() const
 
 void UInventoryPanel::RefreshInventory()
 {
+	if(InventoryReference && InventorySlotClass)
+	{
+		InventoryPanel->ClearChildren();
+
+		for(UItemBase* const& InventoryItem : InventoryReference->GetInventoryContents())
+		{
+			UInventoryItemSlot* ItemSlot = CreateWidget<UInventoryItemSlot>(this, InventorySlotClass);
+			//ItemSlot->SetItemReference(InventoryItem);
+
+			InventoryPanel->AddChildToWrapBox(ItemSlot);
+		}
+	}
 }
 
 bool UInventoryPanel::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
