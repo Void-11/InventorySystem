@@ -22,6 +22,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Intermediate/Build/Win64/UnrealEditor/Inc/InventorySystem/UHT/InventoryPanel.gen.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/DragItemVisual.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/InventoryItemSlot.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/InventoryToolTip.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -613,6 +614,8 @@
       <workItem from="1713721698899" duration="1444000" />
       <workItem from="1713981847746" duration="1206000" />
       <workItem from="1714155179101" duration="499000" />
+      <workItem from="1714299141286" duration="297000" />
+      <workItem from="1714305532356" duration="4307000" />
     </task>
     <servers />
   </component>
