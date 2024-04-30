@@ -9,6 +9,8 @@
 class UInventoryItemSlot;
 class AInventorySystemCharacter;
 class UInventoryComponent;
+class UWrapBox;
+class UTextBlock;
 
 UCLASS()
 class INVENTORYSYSTEM_API UInventoryPanel : public UUserWidget

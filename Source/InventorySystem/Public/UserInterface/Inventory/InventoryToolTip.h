@@ -8,9 +8,7 @@
 
 class UTextBlock;
 class UInventoryItemSlot;
-/**
- * 
- */
+
 UCLASS()
 class INVENTORYSYSTEM_API UInventoryToolTip : public UUserWidget
 {
