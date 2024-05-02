@@ -12,9 +12,7 @@ class UBorder;
 class UInventoryToolTip;
 class UDragItemVisual;
 class UItemBase;
-/**
- * 
- */
+
 UCLASS()
 class INVENTORYSYSTEM_API UInventoryItemSlot : public UUserWidget
 {

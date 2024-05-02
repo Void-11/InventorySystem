@@ -2,7 +2,6 @@
 
 
 #include "UserInterface/Inventory/InventoryItemSlot.h"
-
 #include "Components/Border.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"

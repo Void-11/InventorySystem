@@ -9,9 +9,7 @@
 struct FInteractableData;
 class UInteractionWidget;
 class UMainMenu;
-/**
- * 
- */
+
 UCLASS()
 class INVENTORYSYSTEM_API AInventorySystemHUD : public AHUD
 {

@@ -2,7 +2,6 @@
 
 
 #include "UserInterface/InventorySystemHUD.h"
-
 #include "Chaos/Levelset.h"
 #include "UserInterface/MainMenu.h"
 #include "UserInterface/Interaction/InteractionWidget.h"
