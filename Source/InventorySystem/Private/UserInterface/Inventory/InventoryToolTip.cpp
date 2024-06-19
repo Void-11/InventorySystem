@@ -45,7 +45,7 @@ void UInventoryToolTip::NativeConstruct()
 	UsageText->SetText(ItemBeingHovered->TextData.UsageText);
 	ItemDescription->SetText(ItemBeingHovered->TextData.Description);
 
-    const FString WeightInfo = {"Weight:" + FString::SanitizeFont(ItemBeingHovered->GetItemStackWeight())};
+    const FString WeightInfo = {"Weight:" + FString::SanitizeFloat(ItemBeingHovered->GetItemStackWeight())};
         
     StackWeightValue->SetText(FText::FromString(WeightInfo));
     
