@@ -12,6 +12,14 @@
   <component name="ChangeListManager">
     <list default="true" id="a361ddd0-09ff-45e1-8a5d-7dfc3d843dc4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Blueprints/Blueprint_Effect_Sparks.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Blueprints/Blueprint_Effect_Sparks.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/Private/Components/InventoryComponent.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Private/Components/InventoryComponent.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/Private/InventorySystemCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Private/InventorySystemCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/InventoryItemSlot.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/InventoryItemSlot.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/InventoryPanel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/Inventory/InventoryPanel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/MainMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Private/UserInterface/MainMenu.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/Public/InventorySystemCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Public/InventorySystemCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/InventorySystem/Public/UserInterface/Inventory/ItemDragDropOperation.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/InventorySystem/Public/UserInterface/Inventory/ItemDragDropOperation.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -617,6 +625,15 @@
       <workItem from="1714299141286" duration="297000" />
       <workItem from="1714305532356" duration="4307000" />
       <workItem from="1714499464083" duration="1771000" />
+      <workItem from="1714673426230" duration="785000" />
+      <workItem from="1714759759218" duration="703000" />
+      <workItem from="1714932928330" duration="1812000" />
+      <workItem from="1715159961048" duration="41000" />
+      <workItem from="1718728844507" duration="2632000" />
+      <workItem from="1718732217288" duration="725000" />
+      <workItem from="1718733834012" duration="792000" />
+      <workItem from="1718734784592" duration="211000" />
+      <workItem from="1718812877343" duration="2933000" />
     </task>
     <servers />
   </component>

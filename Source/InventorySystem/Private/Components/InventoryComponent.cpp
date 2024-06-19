@@ -129,6 +129,7 @@ FItemAddResult UInventoryComponent::ManageNonStackableItems(UItemBase* InputItem
 	}
 
 	AddNewItem(InputItem, 1);
+	
 	//return add all result
 	return FItemAddResult::AddedAll(1,FText::Format(
 		FText::FromString("Successfully added {0} {1} to the inventory. Item has invalid weight value"),InputItem->TextData.Name));

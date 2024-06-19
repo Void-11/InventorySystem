@@ -14,7 +14,9 @@
 #include  "DrawDebugHelpers.h"
 #include "Components/InventoryComponent.h"
 #include "UserInterface/InventorySystemHUD.h"
+#include "World/Pickup.h"
 
+class APickup;
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
@@ -230,6 +232,30 @@ void AInventorySystemCharacter::UpdateInteractionWidget() const
 void AInventorySystemCharacter::ToggleMenu()
 {
 	HUD->ToggleMenu();
+}
+
+void AInventorySystemCharacter::DropItem(UItemBase* ItemToDrop, const int32 QuantityToDrop)
+{
+	if (PlayerInventory->FindMatchingItem(ItemToDrop))
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.bNoFail = true;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+		const FVector SpawnLocation(GetActorLocation() + (GetActorForwardVector() * 50.0f));
+		const FTransform SpawnTransform(GetActorRotation(), SpawnLocation);
+
+		const int32 RemovedQuantity = PlayerInventory->RemoveAmountOfItem(ItemToDrop, QuantityToDrop);
+
+		APickup* Pickup = GetWorld()->SpawnActor<APickup>(APickup::StaticClass(), SpawnTransform, SpawnParams);
+
+		Pickup->InitializeDrop(ItemToDrop, RemovedQuantity);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Item to drop was somehow null!"));
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
