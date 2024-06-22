@@ -9,6 +9,7 @@
 #include "InventorySystemCharacter.generated.h"
 
 
+class UTimelineComponent;
 class UItemBase;
 class UInventoryComponent;
 class USpringArmComponent;
@@ -67,9 +68,20 @@ class AInventorySystemCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	UPROPERTY(EditAnywhere, Category="Input")
+	TObjectPtr<UInputAction> InteractAction;
+	
+	UPROPERTY(EditAnywhere, Category="Input")
+	TObjectPtr<UInputAction> AimAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UInputAction> ToggleMenuAction;
+
 public:
 	AInventorySystemCharacter();
 
+	bool bAiming;
+	
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
@@ -104,6 +116,18 @@ protected:
 	UPROPERTY()
 	AInventorySystemHUD* HUD;
 
+	// timeline properties used for camera aiming transition
+	UPROPERTY(VisibleAnywhere, Category="Character | Camera")
+	FVector DefaultCameraLocation;
+	UPROPERTY(VisibleAnywhere, Category="Character | Camera")
+	FVector AimCameraLocation;
+
+	TObjectPtr<UTimelineComponent> AimCameraTimeline;
+
+	UPROPERTY(EditDefaultsOnly, Category="Character | Aim Timeline")
+	TObjectPtr<UCurveFloat> AimCameraCurve;
+
+	
 	//FUNCTIONS
 	
 	/** Called for movement input */
@@ -120,6 +144,15 @@ protected:
 	virtual void Tick(float DeltaSeconds) override;
 
 	void ToggleMenu();
+
+	void Aim();
+	void StopAiming();
+
+	UFUNCTION()
+	void UpdateCameraTimeline(const float TimelineValue) const;
+
+	UFUNCTION()
+	void CameraTimelineEnd();
 	
 	void PerformInteractionCheck();
 	void FoundInteractable(AActor* NewInteractable);

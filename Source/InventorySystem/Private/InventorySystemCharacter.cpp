@@ -13,6 +13,7 @@
 #include "Interfaces/InteractionInterface.h"
 #include  "DrawDebugHelpers.h"
 #include "Components/InventoryComponent.h"
+#include "Components/TimelineComponent.h"
 #include "UserInterface/InventorySystemHUD.h"
 #include "World/Pickup.h"
 
@@ -60,10 +61,17 @@ AInventorySystemCharacter::AInventorySystemCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	AimCameraTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("AimCameraTimeline"));
+	DefaultCameraLocation = FVector{0.0f, 0.0f, 65.0f};
+	AimCameraLocation = FVector{175.0f, 50.0f, 55.0f};
+	CameraBoom->SocketOffset = DefaultCameraLocation;
+	
 	InteractionFrequencyCheck = 0.1;
 	InteractionDistanceCheck = 227.0f;
 
-	BaseEyeHeight = 74.0f;
+	// capsule default dimensions = 34.0f, 88.0f
+	GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
+	BaseEyeHeight = 77.0f;
 }
 
 void AInventorySystemCharacter::BeginPlay()
@@ -81,6 +89,17 @@ void AInventorySystemCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	FOnTimelineFloat AimLerpAlphaValue;
+	FOnTimelineEvent TimelineFinishedEvent;
+	AimLerpAlphaValue.BindUFunction(this, FName("UpdateCameraTimeline"));
+	TimelineFinishedEvent.BindUFunction(this, FName("CameraTimelineEnd"));
+
+	if (AimCameraTimeline && AimCameraCurve)
+	{
+		AimCameraTimeline->AddInterpFloat(AimCameraCurve, AimLerpAlphaValue);
+		AimCameraTimeline->SetTimelineFinishedFunc(TimelineFinishedEvent);
+	}
 }
 
 void AInventorySystemCharacter::Tick(float DeltaSeconds)
@@ -97,20 +116,29 @@ void AInventorySystemCharacter::PerformInteractionCheck()
 {
 	InteractionData.LastInteractionTimeCheck = GetWorld()->GetTimeSeconds();
 
-	FVector TraceStart{GetPawnViewLocation()};
+	FVector TraceStart;
+
+	if (!bAiming)
+	{
+		InteractionDistanceCheck = 227.0f;
+		TraceStart = GetPawnViewLocation();
+	}
+	else
+	{
+		InteractionDistanceCheck = 277.0f;
+		TraceStart = FollowCamera->GetComponentLocation();
+	}
+
 	FVector TraceEnd{TraceStart + (GetViewRotation().Vector() * InteractionDistanceCheck)};
 
-	float LookDirection = FVector::DotProduct(GetActorForwardVector(),GetViewRotation().Vector());
-
-	if(LookDirection > 0)
+	if(float LookDirection = FVector::DotProduct(GetActorForwardVector(),GetViewRotation().Vector()); LookDirection > 0)
 	{	
-		//DrawDebugLine(GetWorld(),TraceStart,TraceEnd,FColor::Purple,false,1.0f,0,2.0f);
+		DrawDebugLine(GetWorld(),TraceStart,TraceEnd,FColor::Purple,false,1.0f,0,2.0f);
 
 		FCollisionQueryParams QueryParams;
 		QueryParams.AddIgnoredActor(this);
-		FHitResult TraceHit;
 
-		if(GetWorld()->LineTraceSingleByChannel(TraceHit,TraceStart,TraceEnd,ECC_Visibility,QueryParams))
+		if(FHitResult TraceHit; GetWorld()->LineTraceSingleByChannel(TraceHit,TraceStart,TraceEnd,ECC_Visibility,QueryParams))
 		{
 			if(TraceHit.GetActor()->GetClass()->ImplementsInterface(UInteractionInterface::StaticClass()))
 			{
@@ -232,6 +260,55 @@ void AInventorySystemCharacter::UpdateInteractionWidget() const
 void AInventorySystemCharacter::ToggleMenu()
 {
 	HUD->ToggleMenu();
+
+	if (HUD->bIsMenuVisible)
+	{
+		StopAiming();
+	}
+}
+
+void AInventorySystemCharacter::Aim()
+{
+	if (!HUD->bIsMenuVisible)
+	{
+		bAiming = true;
+		bUseControllerRotationYaw = true;
+		GetCharacterMovement()->MaxWalkSpeed = 200.0f;
+
+		if (AimCameraTimeline)
+			AimCameraTimeline->PlayFromStart();
+	}
+}
+
+void AInventorySystemCharacter::StopAiming()
+{
+	if (bAiming)
+	{
+		bAiming = false;
+		bUseControllerRotationYaw = false;
+		HUD->HideCrosshair();
+		GetCharacterMovement()->MaxWalkSpeed = 500.f;
+
+		if (AimCameraTimeline)
+			AimCameraTimeline->Reverse();
+	}
+}
+
+void AInventorySystemCharacter::UpdateCameraTimeline(const float TimelineValue) const
+{
+	const FVector CameraLocation = FMath::Lerp(DefaultCameraLocation, AimCameraLocation, TimelineValue);
+	CameraBoom->SocketOffset = CameraLocation;
+}
+
+void AInventorySystemCharacter::CameraTimelineEnd()
+{
+	if (AimCameraTimeline)
+	{
+		if (AimCameraTimeline->GetPlaybackPosition() != 0.0f)
+		{
+			HUD->ShowCrosshair();
+		}
+	}
 }
 
 void AInventorySystemCharacter::DropItem(UItemBase* ItemToDrop, const int32 QuantityToDrop)
@@ -275,16 +352,24 @@ void AInventorySystemCharacter::SetupPlayerInputComponent(UInputComponent* Playe
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AInventorySystemCharacter::Look);
+
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AInventorySystemCharacter::InitiateInteract);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AInventorySystemCharacter::TerminateInteract);
+
+		EnhancedInputComponent->BindAction(AimAction, ETriggerEvent::Started, this, &AInventorySystemCharacter::Aim);
+		EnhancedInputComponent->BindAction(AimAction, ETriggerEvent::Completed, this, &AInventorySystemCharacter::StopAiming);
+
+		EnhancedInputComponent->BindAction(ToggleMenuAction, ETriggerEvent::Started, this, &AInventorySystemCharacter::ToggleMenu);
 	}
 	else
 	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
 
-	PlayerInputComponent->BindAction("Interact",IE_Pressed,this,&AInventorySystemCharacter::InitiateInteract);
-	PlayerInputComponent->BindAction("Interact",IE_Released,this,&AInventorySystemCharacter::TerminateInteract);
-
-	PlayerInputComponent->BindAction("ToggleMenu", IE_Pressed, this, &AInventorySystemCharacter::ToggleMenu);
+	// PlayerInputComponent->BindAction("Interact",IE_Pressed,this,&AInventorySystemCharacter::InitiateInteract);
+	// PlayerInputComponent->BindAction("Interact",IE_Released,this,&AInventorySystemCharacter::TerminateInteract);
+	//
+	// PlayerInputComponent->BindAction("ToggleMenu", IE_Pressed, this, &AInventorySystemCharacter::ToggleMenu);
 }
 
 void AInventorySystemCharacter::Move(const FInputActionValue& Value)

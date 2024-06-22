@@ -24,6 +24,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
 	TSubclassOf<UInteractionWidget> InteractionWidgetClass;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Widgets")
+	TSubclassOf<UUserWidget> CrosshairWidgetClass;
+	
 	bool bIsMenuVisible;
 
 	//FUNCTIONS
@@ -33,6 +36,9 @@ public:
 	void HideMenu();
 	void ToggleMenu();
 
+	void ShowCrosshair();
+	void HideCrosshair();
+	
 	void ShowInteractionWidget() const;
 	void HideInteractionWidget() const;
 	void UpdateInteractionWidget(const FInteractableData* InteractableData) const;
@@ -41,8 +47,11 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY()
-	UMainMenu* MainMenuWidget;
+	TObjectPtr<UMainMenu> MainMenuWidget;
 
 	UPROPERTY()
-	UInteractionWidget* InteractionWidget;
+	TObjectPtr<UInteractionWidget> InteractionWidget;
+
+	UPROPERTY()
+	TObjectPtr<UUserWidget> CrosshairWidget;
 };

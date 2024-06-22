@@ -27,6 +27,13 @@ void AInventorySystemHUD::BeginPlay()
 		InteractionWidget->AddToViewport(-1);
 		InteractionWidget->SetVisibility(ESlateVisibility::Collapsed);
 	}
+
+	if (CrosshairWidgetClass)
+	{
+		CrosshairWidget = CreateWidget<UUserWidget>(GetWorld(), CrosshairWidgetClass);
+		CrosshairWidget->AddToViewport();
+		CrosshairWidget->SetVisibility(ESlateVisibility::Collapsed);
+	}
 }
 
 void AInventorySystemHUD::DisplayMenu()
@@ -65,6 +72,18 @@ void AInventorySystemHUD::ToggleMenu()
 		GetOwningPlayerController()->SetInputMode(InputMode);
 		GetOwningPlayerController()->SetShowMouseCursor(true);
 	}
+}
+
+void AInventorySystemHUD::ShowCrosshair()
+{
+	if (CrosshairWidget)
+		CrosshairWidget->SetVisibility(ESlateVisibility::Visible);
+}
+
+void AInventorySystemHUD::HideCrosshair()
+{
+	if (CrosshairWidget)
+		CrosshairWidget->SetVisibility(ESlateVisibility::Collapsed);
 }
 
 void AInventorySystemHUD::ShowInteractionWidget() const
