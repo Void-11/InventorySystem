@@ -9,6 +9,7 @@
 #include "InventorySystemCharacter.generated.h"
 
 
+class AInventorySystemPlayerController;
 class UTimelineComponent;
 class UItemBase;
 class UInventoryComponent;
@@ -33,7 +34,7 @@ struct FInteractionData
 	};
 
 	UPROPERTY()
-	AActor* CurrentInteractable;
+	TObjectPtr<AActor> CurrentInteractable;
 
 	UPROPERTY()
 	float LastInteractionTimeCheck;
@@ -46,27 +47,27 @@ class AInventorySystemCharacter : public ACharacter
 
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	USpringArmComponent* CameraBoom;
+	TObjectPtr<USpringArmComponent> CameraBoom;
 
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	UCameraComponent* FollowCamera;
+	TObjectPtr<UCameraComponent> FollowCamera;
 	
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputMappingContext* DefaultMappingContext;
+	TObjectPtr<UInputMappingContext> DefaultMappingContext;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* JumpAction;
+	TObjectPtr<UInputAction> JumpAction;
 
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* MoveAction;
+	TObjectPtr<UInputAction> MoveAction;
 
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* LookAction;
+	TObjectPtr<UInputAction> LookAction;
 
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputAction> InteractAction;
@@ -78,9 +79,10 @@ class AInventorySystemCharacter : public ACharacter
 	TObjectPtr<UInputAction> ToggleMenuAction;
 
 public:
-	AInventorySystemCharacter();
 
 	bool bAiming;
+	
+	AInventorySystemCharacter();
 	
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
@@ -98,24 +100,24 @@ public:
 protected:
 
 	//PROPERTIES AND VARIABLES
+
+	UPROPERTY()
+	TObjectPtr<AInventorySystemHUD> HUD;
+    
+	//UPROPERTY()
+	//TObjectPtr<AInventorySystemPlayerController> MainPlayerController;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Character | Interaction")
 	TScriptInterface<IInteractionInterface> TargetInteractable;
 
 	UPROPERTY(VisibleAnywhere, Category = "Character | Inventory")
-	UInventoryComponent* PlayerInventory;
+	TObjectPtr<UInventoryComponent> PlayerInventory;
 	
 	float InteractionFrequencyCheck;
-
 	float InteractionDistanceCheck;
-
 	FTimerHandle TimerHandle_Interaction;
-
 	FInteractionData InteractionData;
-
-	UPROPERTY()
-	AInventorySystemHUD* HUD;
-
+	
 	// timeline properties used for camera aiming transition
 	UPROPERTY(VisibleAnywhere, Category="Character | Camera")
 	FVector DefaultCameraLocation;

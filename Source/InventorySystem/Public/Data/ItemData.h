@@ -86,10 +86,10 @@ struct FItemAssetData
 	GENERATED_USTRUCT_BODY()
 	
 	UPROPERTY(EditAnywhere)
-	UTexture2D* Icon;
+	TObjectPtr<UTexture2D> Icon;
 
 	UPROPERTY(EditAnywhere)
-	UStaticMesh* Mesh;
+	TObjectPtr<UStaticMesh> Mesh;
 	
 };
 

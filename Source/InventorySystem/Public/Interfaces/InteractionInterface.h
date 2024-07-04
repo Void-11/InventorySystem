@@ -24,13 +24,12 @@ struct FInteractableData
 	GENERATED_USTRUCT_BODY()
 
 	FInteractableData() :
-	InteractableType(EInteractableType::Pickup),
-	Name(FText::GetEmpty()),
-	Action(FText::GetEmpty()),
-	Quantity(0),
-	InteractionDuration(0.0f)
+		InteractableType(EInteractableType::Pickup),
+		Name(FText::GetEmpty()),
+		Action(FText::GetEmpty()),
+		Quantity(0),
+		InteractionDuration(0.0f)
 	{
-		
 	};
 
 	UPROPERTY(EditInstanceOnly)
@@ -56,9 +55,6 @@ class UInteractionInterface : public UInterface
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
 class INVENTORYSYSTEM_API IInteractionInterface
 {
 	GENERATED_BODY()
