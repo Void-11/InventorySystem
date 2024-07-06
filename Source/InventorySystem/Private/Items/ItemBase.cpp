@@ -26,15 +26,15 @@ UItemBase* UItemBase::CreateItemCopy() const
 
 void UItemBase::SetQuantity(const int32 NewQuantity)
 {
-	if(NewQuantity != Quantity)
+	if(NewQuantity != this->Quantity)
 	{
 		Quantity = FMath::Clamp(NewQuantity,0,NumericData.bIsStackable ? NumericData.MaxStackSize : 1);
 
-		if(OwningInventory)
+		if(this->OwningInventory)
 		{
-			if(Quantity <= 0)
+			if(this->Quantity <= 0)
 			{
-				OwningInventory->RemoveSingleInstanceOfItem(this);
+				this->OwningInventory->RemoveSingleInstanceOfItem(this);
 			}
 		}
 		else
@@ -44,7 +44,7 @@ void UItemBase::SetQuantity(const int32 NewQuantity)
 	}
 }
 
-void UItemBase::Use(AInventorySystemCharacter* Character)
+void UItemBase::Use(AInventorySystemCharacter* PlayerCharacter)
 {
 }
 

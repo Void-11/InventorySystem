@@ -7,20 +7,13 @@
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
-	
 }
 
 UItemBase* UInventoryComponent::FindMatchingItem(UItemBase* ItemIn) const
@@ -99,7 +92,7 @@ int32 UInventoryComponent::RemoveAmountOfItem(UItemBase* ItemIn, int32 DesiredAm
 
 void UInventoryComponent::SplitExistingStack(UItemBase* ItemIn, const int32 AmountToSplit)
 {
-	if(!(InventoryContents.Num() + 1 > InventorySlotsCapacity))
+	if(InventoryContents.Num() + 1 <= InventorySlotsCapacity)
 	{
 		RemoveAmountOfItem(ItemIn, AmountToSplit);
 		AddNewItem(ItemIn, AmountToSplit);
@@ -132,7 +125,7 @@ FItemAddResult UInventoryComponent::ManageNonStackableItems(UItemBase* InputItem
 	
 	//return add all result
 	return FItemAddResult::AddedAll(1,FText::Format(
-		FText::FromString("Successfully added {0} {1} to the inventory. Item has invalid weight value"),InputItem->TextData.Name));
+		FText::FromString("Successfully added a single {0} to the inventory."),InputItem->TextData.Name));
 }
 
 int32 UInventoryComponent::ManageStackableItems(UItemBase* ItemIn, int32 RequestedAddAmount)

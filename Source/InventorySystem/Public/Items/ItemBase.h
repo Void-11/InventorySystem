@@ -7,6 +7,7 @@
 #include "Data/ItemData.h"
 #include "ItemBase.generated.h"
 
+class AInventorySystemCharacter;
 /**
  * 
  */
@@ -21,6 +22,7 @@ public:
 
 	UPROPERTY()
 	UInventoryComponent* OwningInventory;
+	
 	UPROPERTY(VisibleAnywhere, Category = "Item")
 	int32 Quantity;
 
@@ -68,7 +70,7 @@ public:
 	void SetQuantity(const int32 NewQuantity);
 
 	UFUNCTION(Category = "Item")
-	virtual void Use(AInventorySystemCharacter* Character);
+	virtual void Use(AInventorySystemCharacter* PlayerCharacter);
 
 	void ResetItemFlags();
 	
