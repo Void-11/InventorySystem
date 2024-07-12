@@ -32,23 +32,23 @@ protected:
 	TSubclassOf<UInventoryToolTip> ToolTipClass;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Inventory Slot")
-	UItemBase* ItemReference;
+	TObjectPtr<UItemBase> ItemReference;
 
 	UPROPERTY(VisibleAnywhere, Category = "Inventory Slot", meta=(BindWidget))
-	UBorder* ItemBorder;
+	TObjectPtr<UBorder> ItemBorder;
 
 	UPROPERTY(VisibleAnywhere, Category = "Inventory Slot", meta=(BindWidget))
-	UImage* ItemIcon;
+	TObjectPtr<UImage> ItemIcon;
 
 	UPROPERTY(VisibleAnywhere, Category = "Inventory Slot", meta=(BindWidget))
-	UTextBlock* ItemQuantity;
+	TObjectPtr<UTextBlock> ItemQuantity;
 
 	virtual void NativeOnInitialized() override;
 	virtual void NativeConstruct() override;
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 	virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent,
-		UDragDropOperation*& OutOperation) override;
+	                                  UDragDropOperation*& OutOperation) override;
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
-		UDragDropOperation* InOperation) override;
+	                          UDragDropOperation* InOperation) override;
 };

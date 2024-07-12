@@ -17,33 +17,33 @@ class INVENTORYSYSTEM_API UInventoryToolTip : public UUserWidget
 public:
 
 	UPROPERTY(VisibleAnywhere)
-	UInventoryItemSlot* InventorySlotBeingHovered;
+	TObjectPtr<UInventoryItemSlot> InventorySlotBeingHovered;
 
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* ItemName;
+	TObjectPtr<UTextBlock> ItemName;
 
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* ItemType;
+	TObjectPtr<UTextBlock> ItemType;
 
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* DamageValue;
+	TObjectPtr<UTextBlock> DamageValue;
 
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* ArmorStrength;
+	TObjectPtr<UTextBlock> ArmorStrength;
 
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* UsageText;
+	TObjectPtr<UTextBlock> UsageText;
 
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* ItemDescription;
+	TObjectPtr<UTextBlock> ItemDescription;
 
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* MaxStackSize;
+	TObjectPtr<UTextBlock> MaxStackSize;
 	
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* StackWeightValue;
+	TObjectPtr<UTextBlock> StackWeightValue;
 
 protected:
 
-	virtual  void NativeConstruct() override;
+	virtual void NativeConstruct() override;
 };

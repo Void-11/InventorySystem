@@ -23,19 +23,19 @@ public:
 	void RefreshInventory();
 
 	UPROPERTY(meta=(BindWidget))
-	UWrapBox* InventoryPanel;
+	TObjectPtr<UWrapBox> InventoryPanel;
 
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* WeightInfo;
+	TObjectPtr<UTextBlock> WeightInfo;
 
 	UPROPERTY(meta=(BindWidget))
-	UTextBlock* CapacityInfo;
+	TObjectPtr<UTextBlock> CapacityInfo;
 
 	UPROPERTY()
-	AInventorySystemCharacter* PlayerCharacter;
+	TObjectPtr<AInventorySystemCharacter> PlayerCharacter;
 
 	UPROPERTY()
-	UInventoryComponent* InventoryReference;
+	TObjectPtr<UInventoryComponent> InventoryReference;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UInventoryItemSlot> InventorySlotClass;
@@ -45,5 +45,5 @@ protected:
 	void SetInfoText() const;
 	virtual void NativeOnInitialized() override;
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
-		UDragDropOperation* InOperation) override;
+		                      UDragDropOperation* InOperation) override;
 };

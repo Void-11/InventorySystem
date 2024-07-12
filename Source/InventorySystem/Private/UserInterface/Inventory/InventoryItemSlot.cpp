@@ -45,6 +45,7 @@ void UInventoryItemSlot::NativeConstruct()
 		case EItemQuality::SpecialGrade:
 			ItemBorder->SetBrushColor(FLinearColor(1.0f, 0.45f, 0.0f));
 			break;
+		default: ;
 		}
 
 		ItemIcon->SetBrushFromTexture(ItemReference->AssetData.Icon);
@@ -80,7 +81,7 @@ void UInventoryItemSlot::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 }
 
 void UInventoryItemSlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent,
-	UDragDropOperation*& OutOperation)
+										      UDragDropOperation*& OutOperation)
 {
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
 
@@ -106,7 +107,7 @@ void UInventoryItemSlot::NativeOnDragDetected(const FGeometry& InGeometry, const
 }
 
 bool UInventoryItemSlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
-	UDragDropOperation* InOperation)
+	                                  UDragDropOperation* InOperation)
 {
 	return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
 }

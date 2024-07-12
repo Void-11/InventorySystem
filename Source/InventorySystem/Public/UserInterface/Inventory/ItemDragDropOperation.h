@@ -6,8 +6,8 @@
 #include "Blueprint/DragDropOperation.h"
 #include "ItemDragDropOperation.generated.h"
 
-class UInventoryComponent;
 class UItemBase;
+class UInventoryComponent;
 
 UCLASS()
 class INVENTORYSYSTEM_API UItemDragDropOperation : public UDragDropOperation
@@ -17,8 +17,8 @@ class INVENTORYSYSTEM_API UItemDragDropOperation : public UDragDropOperation
 public:
 	
 	UPROPERTY()
-	UItemBase* SourceItem;
+	TObjectPtr<UItemBase> SourceItem;
 
 	UPROPERTY()
-	UInventoryComponent* SourceInventory;
+	TObjectPtr<UInventoryComponent> SourceInventory;
 };
