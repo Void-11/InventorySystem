@@ -21,7 +21,7 @@ public:
 	//Properties And Variables
 
 	UPROPERTY()
-	UInventoryComponent* OwningInventory;
+	TObjectPtr<UInventoryComponent> OwningInventory;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Item")
 	int32 Quantity;
