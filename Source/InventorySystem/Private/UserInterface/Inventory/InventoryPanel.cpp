@@ -36,8 +36,8 @@ void UInventoryPanel::SetInfoText() const
 	};
 
 	const FString CapacityInfoValue{
-		FString::SanitizeFloat(InventoryReference->GetInventoryContents().Num()) + "/"
-		+ FString::SanitizeFloat(InventoryReference->GetSlotsCapacity())
+		FString::FromInt(InventoryReference->GetInventoryContents().Num()) + "/"
+		+ FString::FromInt(InventoryReference->GetSlotsCapacity())
 	};
 	
 	WeightInfo->SetText(FText::FromString(WeightInfoValue));
@@ -49,14 +49,14 @@ void UInventoryPanel::RefreshInventory()
 {
 	if(InventoryReference && InventorySlotClass)
 	{
-		InventoryPanel->ClearChildren();
+		InventoryWrapBox->ClearChildren();
 
 		for(UItemBase* const& InventoryItem : InventoryReference->GetInventoryContents())
 		{
 			UInventoryItemSlot* ItemSlot = CreateWidget<UInventoryItemSlot>(this, InventorySlotClass);
 			ItemSlot->SetItemReference(InventoryItem);
 
-			InventoryPanel->AddChildToWrapBox(ItemSlot);
+			InventoryWrapBox->AddChildToWrapBox(ItemSlot);
 		}
 
 		SetInfoText();
