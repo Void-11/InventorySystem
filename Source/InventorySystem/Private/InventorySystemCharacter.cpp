@@ -79,12 +79,16 @@ void AInventorySystemCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+	//MainPlayerController = Cast<AInventorySystemPlayerController>(GetController());
 	HUD = Cast<AInventorySystemHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
 	
-	//Add Input Mapping Context
+	//if (MainPlayerController)
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		//if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
+		//	MainPlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
+			PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
@@ -193,6 +197,7 @@ void AInventorySystemCharacter::NoInteractableFound()
 		if(IsValid(TargetInteractable.GetObject()))
 		{
 			TargetInteractable->TerminateFocus();
+			TerminateInteract();
 		}
 
 		HUD->HideInteractionWidget();
@@ -220,10 +225,10 @@ void AInventorySystemCharacter::InitiateInteract()
 			else
 			{
 				GetWorldTimerManager().SetTimer(TimerHandle_Interaction,
-					this,
-					&AInventorySystemCharacter::Interact,
-					TargetInteractable->InteractableData.InteractionDuration,
-					false);
+												this,
+												&AInventorySystemCharacter::Interact,
+												TargetInteractable->InteractableData.InteractionDuration,
+												false);
 			}
 		}
 	}
@@ -353,12 +358,15 @@ void AInventorySystemCharacter::SetupPlayerInputComponent(UInputComponent* Playe
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AInventorySystemCharacter::Look);
 
+		//Interact
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AInventorySystemCharacter::InitiateInteract);
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &AInventorySystemCharacter::TerminateInteract);
 
+		//Aim
 		EnhancedInputComponent->BindAction(AimAction, ETriggerEvent::Started, this, &AInventorySystemCharacter::Aim);
 		EnhancedInputComponent->BindAction(AimAction, ETriggerEvent::Completed, this, &AInventorySystemCharacter::StopAiming);
 
+		//MenuToggle
 		EnhancedInputComponent->BindAction(ToggleMenuAction, ETriggerEvent::Started, this, &AInventorySystemCharacter::ToggleMenu);
 	}
 	else
@@ -373,7 +381,7 @@ void AInventorySystemCharacter::SetupPlayerInputComponent(UInputComponent* Playe
 }
 
 void AInventorySystemCharacter::Move(const FInputActionValue& Value)
-{
+{ 
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
