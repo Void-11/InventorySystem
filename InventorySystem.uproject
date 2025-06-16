@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{8C4B5D51-49CC-7306-5226-A09682BD285B}",
+	"EngineAssociation": "{4FCF4B30-4C6A-BB22-2825-388D61EFD3AB}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -9,8 +9,8 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"CoreUObject",
 				"Engine",
+				"AIModule",
 				"UMG"
 			]
 		}
@@ -22,6 +22,14 @@
 			"TargetAllowList": [
 				"Editor"
 			]
+		},
+		{
+			"Name": "StateTree",
+			"Enabled": true
+		},
+		{
+			"Name": "GameplayStateTree",
+			"Enabled": true
 		}
 	]
 }
