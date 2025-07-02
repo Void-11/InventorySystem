@@ -8,6 +8,7 @@
 
 class UInputMappingContext;
 class UInputAction;
+class UIS_HUDWidget;
 
 UCLASS()
 class INVENTORY_API AIS_PlayerController : public APlayerController
@@ -21,10 +22,17 @@ protected:
 private:
 
 	void PrimaryInteract();
+	void CreateHUDWidget();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Inventory")
 	TObjectPtr<UInputMappingContext> DefaultIMC;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Inventory")
 	TObjectPtr<UInputAction> PrimaryInteractAction;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Inventory")
+	TSubclassOf<UIS_HUDWidget> HUDWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UIS_HUDWidget> HUDWidget;
 };

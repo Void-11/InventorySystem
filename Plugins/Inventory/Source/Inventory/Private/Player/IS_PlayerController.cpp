@@ -4,6 +4,7 @@
 #include "Player/IS_PlayerController.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Widgets/HUD/IS_HUDWidget.h"
 
 void AIS_PlayerController::BeginPlay()
 {
@@ -28,4 +29,14 @@ void AIS_PlayerController::SetupInputComponent()
 void AIS_PlayerController::PrimaryInteract()
 {
 	UE_LOG(LogTemp, Log, TEXT("Primary Interact"))
+}
+
+void AIS_PlayerController::CreateHUDWidget()
+{
+	if (!IsLocalController()) return;
+	HUDWidget = CreateWidget<UIS_HUDWidget>(this, HUDWidgetClass);
+	if (IsValid(HUDWidget))
+	{
+		HUDWidget->AddToViewport();
+	}
 }
