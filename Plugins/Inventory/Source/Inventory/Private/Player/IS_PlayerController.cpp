@@ -4,6 +4,7 @@
 #include "Player/IS_PlayerController.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Items/Components/IS_ItemComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Widgets/HUD/IS_HUDWidget.h"
 
@@ -11,6 +12,7 @@ AIS_PlayerController::AIS_PlayerController()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	TraceLength = 500.0;
+	ItemTraceChannel = ECC_GameTraceChannel1;
 }
 
 void AIS_PlayerController::Tick(float DeltaTime)
@@ -72,11 +74,19 @@ void AIS_PlayerController::ItemTrace()
 	LastActor = ThisActor;
 	ThisActor = HitResult.GetActor();
 
+	if (!ThisActor.IsValid())
+	{
+		if (IsValid(HUDWidget)) HUDWidget->HidePickupMessage();
+	}
+
 	if (ThisActor == LastActor) return;
 
 	if (ThisActor.IsValid())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Started tracing a new actor."))
+		UIS_ItemComponent* ItemComponent = ThisActor->FindComponentByClass<UIS_ItemComponent>();
+		if (!IsValid(ItemComponent)) return;
+
+		if (IsValid(HUDWidget)) HUDWidget->ShowPickupMessage(ItemComponent->GetPickupMessage());
 	}
 
 	if (LastActor.IsValid())

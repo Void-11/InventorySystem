@@ -10,4 +10,12 @@ UCLASS()
 class INVENTORY_API UIS_HUDWidget : public UUserWidget
 {
 	GENERATED_BODY()
+	
+public:
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Inventory")
+	void ShowPickupMessage(const FString& Message);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Inventory")
+	void HidePickupMessage();
 };
