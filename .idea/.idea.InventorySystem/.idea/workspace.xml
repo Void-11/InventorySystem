@@ -13,6 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d29ec570-ac7c-479d-872b-e6f4fdeaedec" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Plugins/Inventory/Source/Inventory/Private/Items/Components/IS_ItemComponent.cpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Plugins/Inventory/Source/Inventory/Public/Items/Components/IS_ItemComponent.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.InventorySystem/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plugins/Inventory/Source/Inventory/Private/Player/IS_PlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Plugins/Inventory/Source/Inventory/Private/Player/IS_PlayerController.cpp" afterDir="false" />
